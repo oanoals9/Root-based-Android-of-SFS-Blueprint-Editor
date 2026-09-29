@@ -1,0 +1,63 @@
+Blueprint Editer  v1.0.0
+=======================
+
+A runtime part editor for Spaceflight Simulator.
+(Frida injection — no APK modification, no repackaging.)
+
+Verified game version : v1.6.00.22 (b713) / Android arm64
+Requires              : root (Magisk / KernelSU / APatch)
+
+------------------------------------------------------------
+INSTALL
+------------------------------------------------------------
+
+1) Get frida-inject from Frida 16.x (arm64) yourself.
+   No Frida binary is bundled with this project:
+
+   https://github.com/frida/frida/releases
+
+2) Push the files
+
+   adb push sfs_mod.js       /data/local/tmp/
+   adb push sfs_mod.sh       /data/local/tmp/
+   adb push frida-inject-16  /data/local/tmp/
+   adb shell su -c "chmod 755 /data/local/tmp/frida-inject-16 /data/local/tmp/sfs_mod.sh"
+
+3) Start the game first, then
+
+   adb shell
+   su -c "sh /data/local/tmp/sfs_mod.sh"
+
+------------------------------------------------------------
+STOPPING
+------------------------------------------------------------
+
+Tap the ✕ in the panel's title bar (or press Ctrl+C in the terminal).
+
+* The injector process intentionally keeps running afterwards.
+  The mod registers its button listeners via Java.registerClass — those are
+  JNI methods living inside the game process. Unloading the script turns
+  them into dangling pointers, and a single touch landing on a still-attached
+  View crashes the game immediately.
+
+  The process idles in the background using almost no CPU, and the next run
+  of the launcher cleans it up safely.
+
+* So a frida-inject process remaining after stopping is NORMAL.
+  Please do NOT kill it manually.
+
+------------------------------------------------------------
+LOGS
+------------------------------------------------------------
+
+/sdcard/Android/data/com.StefMorojna.SpaceflightSimulator/files/mod.log
+/data/local/tmp/sfs_mod.out
+
+------------------------------------------------------------
+LICENSE
+------------------------------------------------------------
+
+This project is MIT licensed (see LICENSE).
+It bundles no Frida binary and contains no assets or code from the game.
+Modifying a commercial game may violate its terms of service — use at your
+own risk.
