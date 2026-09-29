@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 oanoals9
+Copyright (c) 2026 <请替换为你的名字或 ID>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+注意（不属许可证正文）：
+
+1. 本许可证只覆盖本仓库自身的内容（sfs_mod.js / sfs_mod.sh / 文档）。
+2. Frida 不在本仓库范围内，其许可证见 https://github.com/frida/frida
+   （主要为 wxWindows Library Licence）。本仓库不附带任何 Frida 二进制。
+3. 本仓库不包含 Spaceflight Simulator 的任何资源或代码。

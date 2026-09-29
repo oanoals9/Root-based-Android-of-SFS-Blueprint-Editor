@@ -1,0 +1,58 @@
+Blueprint Editer  v1.0.0
+=======================
+
+Spaceflight Simulator 运行时部件编辑修改器
+（Frida 注入，不修改 APK）
+
+已验证游戏版本：v1.6.00.22 (b713) / Android arm64
+要求：已 root（Magisk / KernelSU / APatch 之一）
+
+------------------------------------------------------------
+安装
+------------------------------------------------------------
+
+1) 自备 Frida 16.x 的 frida-inject（arm64）
+   本项目不附带 Frida 二进制，请从官方下载：
+   https://github.com/frida/frida/releases
+
+2) 推送文件
+
+   adb push sfs_mod.js       /data/local/tmp/
+   adb push sfs_mod.sh       /data/local/tmp/
+   adb push frida-inject-16  /data/local/tmp/
+   adb shell su -c "chmod 755 /data/local/tmp/frida-inject-16 /data/local/tmp/sfs_mod.sh"
+
+3) 先打开游戏，然后
+
+   adb shell
+   su -c "sh /data/local/tmp/sfs_mod.sh"
+
+------------------------------------------------------------
+停止
+------------------------------------------------------------
+
+点面板标题栏的 ✕（或终端 Ctrl+C）。
+
+★ 停止后注入进程会保留在后台空转，这是【刻意设计】：
+  本修改器用 Java.registerClass 给按钮装了监听器，这些是运行在游戏
+  进程里的 JNI 方法；卸载脚本会让它们变成悬空指针，只要有一次触摸
+  落到残留 View 上，游戏就会段错误崩溃。
+  注入进程几乎不耗 CPU，下次执行 .sh 时会自动安全清理。
+
+★ 因此停止后 ps 仍能看到 frida-inject 进程 —— 这是正常的，
+  请不要手动杀它。
+
+------------------------------------------------------------
+日志
+------------------------------------------------------------
+
+/sdcard/Android/data/com.StefMorojna.SpaceflightSimulator/files/mod.log
+/data/local/tmp/sfs_mod.out
+
+------------------------------------------------------------
+许可
+------------------------------------------------------------
+
+本项目以 MIT 授权（见 LICENSE）。
+不包含 Frida 二进制，也不包含游戏的任何资源或代码。
+修改商业游戏可能违反其服务条款，风险自负。
